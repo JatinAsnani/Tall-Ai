@@ -16,8 +16,13 @@ from features.reminder_scheduler import start_scheduler
 
 app = FastAPI(title="TallAI API", version="1.0.0")
 
-frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-origins = [url.strip() for url in frontend_url.split(",") if url.strip()]
+frontend_url = os.getenv("FRONTEND_URL")
+origins = ["http://localhost:5173"]
+if frontend_url:
+    for url in frontend_url.split(","):
+        stripped = url.strip()
+        if stripped and stripped not in origins:
+            origins.append(stripped)
 
 app.add_middleware(
     CORSMiddleware,
@@ -45,6 +50,11 @@ app.include_router(purchase_router.router, prefix="/purchases", tags=["Purchases
 def on_startup():
     Base.metadata.create_all(bind=engine)
     start_scheduler()
+
+
+@app.get("/")
+def read_root():
+    return {"status": "ok", "app": "TallAI API"}
 
 
 @app.get("/health")
