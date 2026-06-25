@@ -46,9 +46,15 @@ app.include_router(stock_router.router, prefix="/stock", tags=["Stock"])
 app.include_router(purchase_router.router, prefix="/purchases", tags=["Purchases"])
 
 
+from seed_data import seed_database
+
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
+    try:
+        seed_database()
+    except Exception as e:
+        print(f"Error seeding database: {e}")
     start_scheduler()
 
 
