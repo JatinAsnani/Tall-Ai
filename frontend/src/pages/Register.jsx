@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
+import { getErrorMessage } from '../utils/formatError'
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', business_name: '' })
@@ -17,7 +18,7 @@ export default function Register() {
       toast.success('Account created!')
       navigate('/')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Registration failed')
+      toast.error(getErrorMessage(err, 'Registration failed'))
     } finally {
       setLoading(false)
     }

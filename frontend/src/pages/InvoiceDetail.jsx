@@ -8,6 +8,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import { formatDate } from '../utils/formatDate'
 import api from '../api/axios'
 import toast from 'react-hot-toast'
+import { getErrorMessage } from '../utils/formatError'
 
 export default function InvoiceDetail() {
   const { id } = useParams()
@@ -63,7 +64,7 @@ export default function InvoiceDetail() {
       setPaymentAmount('')
       reload()
     } catch (err) {
-      toast.error(err?.response?.data?.detail || 'Payment failed')
+      toast.error(getErrorMessage(err, 'Payment failed'))
     } finally {
       setPaying(false)
     }

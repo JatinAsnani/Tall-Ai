@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
+import { getErrorMessage } from '../utils/formatError'
 
 export default function Login() {
   const [email, setEmail] = useState('demo@tallai.com')
@@ -18,7 +19,7 @@ export default function Login() {
       toast.success('Welcome to TallAI!')
       navigate('/')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Login failed')
+      toast.error(getErrorMessage(err, 'Login failed'))
     } finally {
       setLoading(false)
     }

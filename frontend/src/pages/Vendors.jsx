@@ -7,6 +7,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import { formatDate } from '../utils/formatDate'
 import api from '../api/axios'
 import toast from 'react-hot-toast'
+import { getErrorMessage } from '../utils/formatError'
 
 function VendorForm({ onSubmit, onCancel }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', gstin: '', city: '', state: 'Gujarat', address: '' })
@@ -174,7 +175,7 @@ export default function Vendors() {
       setShowPurchaseForm(false)
       fetchAll()
     } catch (err) {
-      toast.error(err?.response?.data?.detail || 'Failed to save purchase bill')
+      toast.error(getErrorMessage(err, 'Failed to save purchase bill'))
     }
   }
 
