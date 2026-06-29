@@ -81,14 +81,14 @@ export default function Chat() {
 
   return (
     <PageWrapper title="AI Chat">
-      <div className="flex gap-6 h-[calc(100vh-140px)]">
-        <div className="w-56 shrink-0 space-y-2">
-          <p className="text-xs font-medium text-gray-500 uppercase">Quick Actions</p>
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-[calc(100vh-140px)]">
+        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 md:w-56 shrink-0">
+          <p className="hidden md:block text-xs font-medium text-gray-500 uppercase">Quick Actions</p>
           {QUICK_ACTIONS.map(a => (
             <button
               key={a.label}
               onClick={() => sendMessage(a.query)}
-              className="w-full text-left px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors"
+              className="whitespace-nowrap md:w-full text-left px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors shrink-0"
             >
               {a.label}
             </button>

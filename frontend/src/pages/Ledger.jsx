@@ -31,7 +31,8 @@ export default function Ledger() {
       </div>
       {view === 'trial' ? (
         <div className="bg-white rounded-xl border overflow-hidden">
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[500px]">
             <thead className="bg-gray-50">
               <tr>{['Account', 'Type', 'Debit', 'Credit'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase">{h}</th>)}</tr>
             </thead>
@@ -53,10 +54,11 @@ export default function Ledger() {
               </tr>
             </tfoot>
           </table>
+          </div>
         </div>
       ) : (
-        <div className="flex gap-6">
-          <div className="w-64 bg-white rounded-xl border p-4 space-y-1 max-h-[600px] overflow-y-auto">
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="w-full md:w-64 bg-white rounded-xl border p-4 space-y-1 max-h-[300px] md:max-h-[600px] overflow-y-auto shrink-0">
             {accounts.map(a => (
               <button key={a.account_name} onClick={() => loadAccount(a.account_name)} className={`w-full text-left px-3 py-2 rounded-lg text-sm ${selected === a.account_name ? 'bg-blue-50 text-primary' : 'hover:bg-gray-50'}`}>
                 <p className="truncate">{a.account_name}</p>
@@ -66,7 +68,8 @@ export default function Ledger() {
           </div>
           <div className="flex-1 bg-white rounded-xl border overflow-hidden">
             {selected ? (
-              <table className="w-full text-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm min-w-[600px]">
                 <thead className="bg-gray-50">
                   <tr>{['Date', 'Particulars', 'Debit', 'Credit', 'Balance'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase">{h}</th>)}</tr>
                 </thead>
@@ -82,6 +85,7 @@ export default function Ledger() {
                   ))}
                 </tbody>
               </table>
+              </div>
             ) : <p className="p-8 text-gray-400 text-center">Select an account</p>}
           </div>
         </div>

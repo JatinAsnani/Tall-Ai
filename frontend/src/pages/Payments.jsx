@@ -39,21 +39,23 @@ export default function Payments() {
           <button onClick={() => setShowForm(true)} className="w-full mt-4 px-4 py-2 bg-primary text-white rounded-lg text-sm">Record Payment</button>
         </div>
         <div className="lg:col-span-2 bg-white rounded-xl border overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50">
-              <tr>{['Date', 'Customer', 'Amount', 'Mode'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
-            </thead>
-            <tbody className="divide-y">
-              {payments.map(p => (
-                <tr key={p.id}>
-                  <td className="px-4 py-3">{formatDate(p.payment_date)}</td>
-                  <td className="px-4 py-3">{p.customer?.name}</td>
-                  <td className="px-4 py-3 font-mono text-green-600">{formatCurrency(p.amount)}</td>
-                  <td className="px-4 py-3 capitalize">{p.payment_mode?.replace('_', ' ')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[500px]">
+              <thead className="bg-gray-50">
+                <tr>{['Date', 'Customer', 'Amount', 'Mode'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
+              </thead>
+              <tbody className="divide-y">
+                {payments.map(p => (
+                  <tr key={p.id}>
+                    <td className="px-4 py-3">{formatDate(p.payment_date)}</td>
+                    <td className="px-4 py-3">{p.customer?.name}</td>
+                    <td className="px-4 py-3 font-mono text-green-600">{formatCurrency(p.amount)}</td>
+                    <td className="px-4 py-3 capitalize">{p.payment_mode?.replace('_', ' ')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Record Payment">

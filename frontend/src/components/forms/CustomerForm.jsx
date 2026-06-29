@@ -17,7 +17,7 @@ export default function CustomerForm({ initial, onSubmit, onCancel }) {
 
   return (
     <form onSubmit={e => { e.preventDefault(); onSubmit(form) }} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
           <input value={form.name} onChange={e => set('name', e.target.value)} className="w-full border rounded-lg px-3 py-2" required />

@@ -354,7 +354,7 @@ export default function Reports() {
         ) : !data ? (
           <div className="p-12 text-center text-gray-400">No data available for the selected period.</div>
         ) : (
-          <div className="p-6">
+          <div className="p-4 md:p-6 overflow-x-auto">
             {tab === 'P&L' && <PLReport data={data} />}
             {tab === 'GST' && <GSTReport data={data} />}
             {tab === 'Sales' && <SalesChart data={data} />}

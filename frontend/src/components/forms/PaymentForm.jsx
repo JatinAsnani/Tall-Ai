@@ -23,7 +23,7 @@ export default function PaymentForm({ onSubmit, onCancel, defaultCustomerId }) {
           {customers.map(c => <option key={c.id} value={c.id}>{c.name} (₹{c.outstanding} due)</option>)}
         </select>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
           <input type="number" value={form.amount} onChange={e => set('amount', e.target.value)} className="w-full border rounded-lg px-3 py-2" required />

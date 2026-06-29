@@ -47,23 +47,25 @@ export default function Expenses() {
         {expenses.length === 0 && !loading ? (
           <EmptyState title="No expenses" description="Track your business expenses here" />
         ) : (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50">
-              <tr>{['Date', 'Category', 'Description', 'Amount', 'Mode', 'Actions'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
-            </thead>
-            <tbody className="divide-y">
-              {expenses.map(e => (
-                <tr key={e.id}>
-                  <td className="px-4 py-3">{formatDate(e.expense_date)}</td>
-                  <td className="px-4 py-3">{e.category}</td>
-                  <td className="px-4 py-3 text-gray-600">{e.description || '-'}</td>
-                  <td className="px-4 py-3 font-mono">{formatCurrency(e.amount)}</td>
-                  <td className="px-4 py-3 capitalize">{e.payment_mode?.replace('_', ' ')}</td>
-                  <td className="px-4 py-3"><button onClick={() => handleDelete(e.id)} className="text-red-600 text-xs">Delete</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[600px]">
+              <thead className="bg-gray-50">
+                <tr>{['Date', 'Category', 'Description', 'Amount', 'Mode', 'Actions'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
+              </thead>
+              <tbody className="divide-y">
+                {expenses.map(e => (
+                  <tr key={e.id}>
+                    <td className="px-4 py-3">{formatDate(e.expense_date)}</td>
+                    <td className="px-4 py-3">{e.category}</td>
+                    <td className="px-4 py-3 text-gray-600">{e.description || '-'}</td>
+                    <td className="px-4 py-3 font-mono">{formatCurrency(e.amount)}</td>
+                    <td className="px-4 py-3 capitalize">{e.payment_mode?.replace('_', ' ')}</td>
+                    <td className="px-4 py-3"><button onClick={() => handleDelete(e.id)} className="text-red-600 text-xs">Delete</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Add Expense">

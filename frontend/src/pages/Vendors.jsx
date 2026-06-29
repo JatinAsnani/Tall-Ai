@@ -15,11 +15,11 @@ function VendorForm({ onSubmit, onCancel }) {
   return (
     <form onSubmit={handle} className="space-y-4">
       <input placeholder="Vendor Name *" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full border border-gray-300 rounded-lg px-3 py-2" required />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input placeholder="Phone" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="w-full border border-gray-300 rounded-lg px-3 py-2" />
         <input placeholder="Email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className="w-full border border-gray-300 rounded-lg px-3 py-2" />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input placeholder="GSTIN" value={form.gstin} onChange={e => setForm(f => ({ ...f, gstin: e.target.value }))} className="w-full border border-gray-300 rounded-lg px-3 py-2" />
         <input placeholder="State" value={form.state} onChange={e => setForm(f => ({ ...f, state: e.target.value }))} className="w-full border border-gray-300 rounded-lg px-3 py-2" />
       </div>
@@ -73,7 +73,7 @@ function PurchaseBillForm({ vendors, onSubmit, onCancel }) {
 
   return (
     <form onSubmit={handle} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Vendor *</label>
           <select value={vendorId} onChange={e => setVendorId(e.target.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2" required>
@@ -223,7 +223,8 @@ export default function Vendors() {
               <button onClick={() => setShowVendorForm(true)} className="px-4 py-2 bg-primary text-white rounded-lg text-sm">Add Vendor</button>
             } />
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[650px]">
               <thead className="bg-gray-50">
                 <tr>
                   {['Name', 'Phone', 'GSTIN', 'State', 'Outstanding'].map(h => (
@@ -245,6 +246,7 @@ export default function Vendors() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       )}
@@ -265,7 +267,8 @@ export default function Vendors() {
               }
             />
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[800px]">
               <thead className="bg-gray-50">
                 <tr>
                   {['Bill #', 'Vendor', 'Date', 'Due Date', 'Amount', 'Paid', 'Balance', 'Status'].map(h => (
@@ -299,6 +302,7 @@ export default function Vendors() {
                 })}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       )}

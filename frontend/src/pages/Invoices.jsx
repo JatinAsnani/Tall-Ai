@@ -57,7 +57,7 @@ export default function Invoices() {
   return (
     <PageWrapper title="Invoices">
       {summary && (
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             ['Total Invoiced', summary.total_invoiced],
             ['Total Received', summary.total_received],
@@ -90,7 +90,8 @@ export default function Invoices() {
             <button onClick={() => setShowForm(true)} className="px-4 py-2 bg-primary text-white rounded-lg text-sm">Create Invoice</button>
           } />
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[800px]">
             <thead className="bg-gray-50">
               <tr>
                 {['Invoice #', 'Customer', 'Date', 'Due', 'Amount', 'GST', 'Total', 'Status', 'Actions'].map(h => (
@@ -120,6 +121,7 @@ export default function Invoices() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
         {total > 20 && (
           <div className="flex justify-center gap-2 p-4 border-t">

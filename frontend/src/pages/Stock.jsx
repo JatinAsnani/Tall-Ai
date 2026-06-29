@@ -46,7 +46,8 @@ export default function Stock() {
       </div>
       <div className="bg-white rounded-xl border overflow-hidden">
         {items.length === 0 ? <EmptyState title="No stock items" description="Add inventory items to track stock" /> : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[750px]">
             <thead className="bg-gray-50">
               <tr>{['Name', 'Category', 'Stock', 'Min', 'Purchase', 'Selling', 'Status', 'Actions'].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase">{h}</th>)}</tr>
             </thead>
@@ -68,10 +69,11 @@ export default function Stock() {
               })}
             </tbody>
           </table>
+          </div>
         )}
       </div>
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Add Stock Item">
-        <form onSubmit={handleCreate} className="grid grid-cols-2 gap-3">
+        <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {Object.entries({ name: 'text', category: 'text', unit: 'text', current_stock: 'number', min_stock: 'number', purchase_rate: 'number', selling_rate: 'number' }).map(([k, type]) => (
             <input key={k} type={type} placeholder={k.replace('_', ' ')} value={form[k]} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} className="border rounded-lg px-3 py-2 capitalize" required={k === 'name'} />
           ))}

@@ -32,23 +32,25 @@ export default function Customers() {
         {customers.length === 0 && !loading ? (
           <EmptyState title="No customers" description="Add customers to create invoices" />
         ) : (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50">
-              <tr>{['Name', 'Phone', 'GSTIN', 'Total Business', 'Outstanding', ''].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
-            </thead>
-            <tbody className="divide-y">
-              {[...customers].sort((a, b) => b.outstanding - a.outstanding).map(c => (
-                <tr key={c.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium"><Link to={`/customers/${c.id}`} className="text-primary">{c.name}</Link></td>
-                  <td className="px-4 py-3">{c.phone || '-'}</td>
-                  <td className="px-4 py-3 text-xs">{c.gstin || '-'}</td>
-                  <td className="px-4 py-3 font-mono">{formatCurrency(c.total_business)}</td>
-                  <td className="px-4 py-3 font-mono text-red-600">{formatCurrency(c.outstanding)}</td>
-                  <td className="px-4 py-3"><Link to={`/customers/${c.id}`} className="text-xs text-primary">View</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[650px]">
+              <thead className="bg-gray-50">
+                <tr>{['Name', 'Phone', 'GSTIN', 'Total Business', 'Outstanding', ''].map(h => <th key={h} className="px-4 py-3 text-left text-xs uppercase text-gray-500">{h}</th>)}</tr>
+              </thead>
+              <tbody className="divide-y">
+                {[...customers].sort((a, b) => b.outstanding - a.outstanding).map(c => (
+                  <tr key={c.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 font-medium"><Link to={`/customers/${c.id}`} className="text-primary">{c.name}</Link></td>
+                    <td className="px-4 py-3">{c.phone || '-'}</td>
+                    <td className="px-4 py-3 text-xs">{c.gstin || '-'}</td>
+                    <td className="px-4 py-3 font-mono">{formatCurrency(c.total_business)}</td>
+                    <td className="px-4 py-3 font-mono text-red-600">{formatCurrency(c.outstanding)}</td>
+                    <td className="px-4 py-3"><Link to={`/customers/${c.id}`} className="text-xs text-primary">View</Link></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Add Customer">

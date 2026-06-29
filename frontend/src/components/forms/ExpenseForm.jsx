@@ -28,7 +28,7 @@ export default function ExpenseForm({ initial, onSubmit, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
           <select value={form.category} onChange={e => set('category', e.target.value)} className="w-full border rounded-lg px-3 py-2" required>
