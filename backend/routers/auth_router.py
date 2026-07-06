@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from deps import get_current_user
 from auth import verify_password, get_password_hash, create_access_token
+import os
 import models
 import schemas
 
@@ -61,3 +62,48 @@ def update_profile(
     db.commit()
     db.refresh(user)
     return user
+
+
+@router.get("/users-list")
+def get_users_list(secret: str, db: Session = Depends(get_db)):
+    expected_secret = os.getenv("SECRET_KEY")
+    if not expected_secret or secret != expected_secret:
+        raise HTTPException(status_code=403, detail="Invalid admin secret key")
+    
+    users = db.query(models.User).all()
+    return [
+        {
+            "id": u.id,
+            "name": u.name,
+            "email": u.email,
+            "business_name": u.business_name,
+            "created_at": u.created_at
+        }
+        for u in users
+    ]
+
+
+@router.get("/ledger-logs")
+def get_ledger_logs(secret: str, db: Session = Depends(get_db)):
+    expected_secret = os.getenv("SECRET_KEY")
+    if not expected_secret or secret != expected_secret:
+        raise HTTPException(status_code=403, detail="Invalid admin secret key")
+    
+    entries = db.query(models.LedgerEntry).order_by(models.LedgerEntry.created_at.desc()).limit(100).all()
+    return [
+        {
+            "id": e.id,
+            "user_id": e.user_id,
+            "account_name": e.account_name,
+            "account_type": e.account_type,
+            "debit": float(e.debit) if e.debit else 0.0,
+            "credit": float(e.credit) if e.credit else 0.0,
+            "balance": float(e.balance) if e.balance else 0.0,
+            "description": e.description,
+            "reference_type": e.reference_type,
+            "reference_id": e.reference_id,
+            "entry_date": e.entry_date,
+            "created_at": e.created_at
+        }
+        for e in entries
+    ]
